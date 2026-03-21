@@ -6,7 +6,8 @@ Task Manager is a  full-stack application built using the MERN stack (MongoDB, E
 It allows users to add tasks with a title and description, view the list of tasks, and delete tasks when they are no longer needed.
 The goal of this project is to understand how a React frontend communicates with a Node/Express backend and stores data in MongoDB.
 
-<img width="1920" height="1031" alt="image" src="https://github.com/user-attachments/assets/f1572158-baeb-45ac-9155-8b05c5b1ada7" />
+
+<img width="1918" height="1023" alt="task_manager" src="https://github.com/user-attachments/assets/d9180b3b-de24-46a9-8c8c-045b6e184fec" />
 
 
 ## 🧰 Tech Stack

@@ -16,7 +16,13 @@ const taskSchema = new mongoose.Schema({
  status:{
   type:String,
   default:"Pending"
- }
+ },
+   // 🔥 NEW FIELD
+  userId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
+    required: true
+  }
 
 });
 

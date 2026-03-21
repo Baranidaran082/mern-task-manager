@@ -1,19 +1,31 @@
 import { useState } from "react";
 import axios from "axios";
+import "./Taskform.css"
 
 function TaskForm() {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
 
   const handleSubmit = async () => {
+    const token = localStorage.getItem("token");
+
     try {
-      await axios.post("http://localhost:5000/tasks", {
-        title,
-        description,
-      });
+      await axios.post(
+        "http://localhost:5000/tasks",
+        {
+          title,
+          description,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
 
       setTitle("");
       setDescription("");
+
     } catch (error) {
       console.error("Error adding task:", error);
     }
@@ -35,9 +47,7 @@ function TaskForm() {
         onChange={(e) => setDescription(e.target.value)}
       />
 
-      <button className="addBtn" onClick={handleSubmit}>
-        Add
-      </button>
+      <button onClick={handleSubmit}>Add</button>
     </div>
   );
 }

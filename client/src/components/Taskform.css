@@ -1,0 +1,45 @@
+.form {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 25px;
+}
+
+.form input {
+  flex: 1;
+  padding: 12px;
+  border-radius: 10px;
+  border: 1px solid #ddd;
+  outline: none;
+}
+
+.form input:focus {
+  border-color: #6a5acd;
+}
+
+.addBtn {
+  padding: 12px 18px;
+  background: #28a745;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-weight: bold;
+}
+
+.addBtn:hover {
+  background: #218838;
+}
+
+@media (max-width: 600px) {
+  .form {
+    flex-direction: column;
+  }
+
+  .addBtn {
+    width: 100%;
+  }
+
+  .container {
+    margin: 20px;
+    padding: 20px;
+  }
+}

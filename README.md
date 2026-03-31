@@ -8,7 +8,8 @@ It allows users to create tasks with a title and description, view all tasks, up
 This project demonstrates how a React frontend communicates with a Node.js/Express backend and stores data in MongoDB.
 
 
-<img width="1918" height="1023" alt="task_manager" src="https://github.com/user-attachments/assets/d9180b3b-de24-46a9-8c8c-045b6e184fec" />
+<img width="1908" height="875" alt="task_manager" src="https://github.com/user-attachments/assets/19d4fa12-8999-4ba8-b4d5-14379693868c" />
+/>
 
 
 ## 🧰 Tech Stack

@@ -1,7 +1,6 @@
 import mongoose from "mongoose";
 
 
-// creating schema
 const taskSchema = new mongoose.Schema({
 
  title:{
@@ -13,11 +12,6 @@ const taskSchema = new mongoose.Schema({
   type:String
  },
 
- status:{
-  type:String,
-  default:"Pending"
- },
-   // 🔥 NEW FIELD
   userId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
@@ -27,7 +21,6 @@ const taskSchema = new mongoose.Schema({
 });
 
 
-//creating model
 const Task = mongoose.model("Task",taskSchema);
 
 export default Task;

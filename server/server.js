@@ -6,7 +6,7 @@ import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import User from "./models/User.js";
 import dotenv from "dotenv";
-
+import axios from "axios"
 
 const app = express();
 
@@ -85,14 +85,14 @@ const authMiddleware = (req, res, next) => {
       return res.status(401).json({ message: "No token, authorization denied" });
     }
 
-    // ✅ Expect: "Bearer token"
+    //  Expect: "Bearer token"
     const actualToken = token.split(" ")[1];
 
     if (!actualToken) {
       return res.status(401).json({ message: "Invalid token format" });
     }
 
-    // ✅ IMPORTANT: same secret as login
+    //  IMPORTANT: same secret as login
     const decoded = jwt.verify(actualToken, process.env.JWT_SECRET);
 
     req.user = decoded;
@@ -150,7 +150,7 @@ app.put("/tasks/:id", authMiddleware, async (req, res) => {
   const updatedTask = await Task.findOneAndUpdate(
     {
       _id: req.params.id,
-      userId: req.user.id   // 🔥 only owner can update
+      userId: req.user.id   //  only owner can update
     },
     req.body,
     { new: true }
@@ -176,6 +176,85 @@ app.delete("/tasks/:id", authMiddleware, async (req, res) => {
 });
 
 
+// AICHAT 
+app.post("/api/ai/chat", async (req, res) => {
+  try {
+   const { message, tasks } = req.body;
+
+    const response = await axios.post(
+      "https://openrouter.ai/api/v1/chat/completions",
+      {
+        model: "openrouter/free",
+            messages: [
+              {
+                role: "system",
+                content: `
+            You are an AI Productivity Assistant.
+
+            You will be given:
+            1. A user message
+            2. A list of tasks
+
+            Your job:
+            - Answer ONLY based on the given tasks
+            - Do NOT create new tasks
+            - Do NOT assume anything outside the tasks
+
+            Prioritization Rules:
+            - Tasks with words like "project", "study", "client", "work" are HIGH priority
+            - Tasks like "shopping", "market", "casual" are LOWER priority
+
+            When user asks to prioritize:
+            - Return tasks in order (1,2,3...)
+            - Be consistent
+              
+            - Do NOT use markdown symbols like ** or *
+              - Return plain plain text only
+
+            If user asks:
+            - "What tasks do I have?" → list all tasks
+            - "Prioritize my tasks" → ترتيب based on importance
+            - "What should I do first?" → suggest order
+            - Return tasks in order (1,2,3...)
+              - Be consistent
+              
+                FORMAT RULES:
+              - Each task must be on a new line
+              - Use numbering like:
+                1. Task
+                2. Task
+                3. Task
+              - Do NOT write everything in one paragraph
+            Respond in simple text (NOT JSON)
+            `
+              },
+              {
+                role: "user",
+                content: `User Message:${message}
+                          User Tasks:${JSON.stringify(tasks)}`
+              }
+            ]
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${process.env.OPENROUTER_API_KEY}`,
+          "Content-Type": "application/json",
+        },
+      }
+    );
+
+    const aiReply = response.data.choices[0].message.content;
+
+    res.json({ reply: aiReply });
+
+  } catch (error) {
+    console.error("Error:", error.response?.data || error.message);
+
+    res.status(500).json({
+      reply: "Error getting AI response",
+    });
+  }
+});
 
 
 

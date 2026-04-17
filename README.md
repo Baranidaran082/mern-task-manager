@@ -11,7 +11,7 @@ The AI feature is designed to respond **only to task-related queries**, making i
 This project demonstrates full-stack development along with real-world AI API integration.
 
 <img width="1908" height="875" alt="task_manager" src="https://github.com/user-attachments/assets/19d4fa12-8999-4ba8-b4d5-14379693868c" />
-/>
+
 
 ---
 

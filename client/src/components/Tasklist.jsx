@@ -1,42 +1,27 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import axios from "axios";
 import "./Tasklist.css"
 
-function TaskList() {
-  const [tasks, setTasks] = useState([]);
+function TaskList({ tasks , fetchTasks }){
+
 
   const [editingId, setEditingId] = useState(null);
   const [editTitle, setEditTitle] = useState("");
   const [editDescription, setEditDescription] = useState("");
 
-  // ✅ Fetch tasks and display in the UI
-  useEffect(() => {
-    getTasks();
-  }, []);
 
-  const getTasks = async () => {
-    const token = localStorage.getItem("token");
-
-    const res = await axios.get("http://localhost:5000/tasks", {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
-
-    setTasks(res.data);
-  };
 
   // Delete task
   const deleteTask = async (id) => {
-    const token = localStorage.getItem("token");
+    const token = sessionStorage.getItem("token");
 
     await axios.delete(`http://localhost:5000/tasks/${id}`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
     });
+      fetchTasks();
 
-    getTasks();
   };
 
   // Edit task
@@ -48,7 +33,7 @@ function TaskList() {
 
   // Update the edited task
   const updateTask = async () => {
-    const token = localStorage.getItem("token");
+    const token = sessionStorage.getItem("token");
 
     await axios.put(
       `http://localhost:5000/tasks/${editingId}`,
@@ -64,7 +49,8 @@ function TaskList() {
     );
 
     setEditingId(null);
-    getTasks();
+      fetchTasks();
+
   };
 
   return (
@@ -97,7 +83,7 @@ function TaskList() {
               <br />
 
               <button onClick={() => startEdit(task)}>Edit</button>
-              <button onClick={() => deleteTask(task._id)}>Delete</button>
+              <button className="deleteBtn" onClick={() => deleteTask(task._id)}>Delete</button> 
             </>
           )}
         </div>

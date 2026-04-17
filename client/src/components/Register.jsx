@@ -13,9 +13,9 @@ function Register({ setShowLoginPage }) {
         password,
       });
 
-      alert("Registered successfully ✅");
+      alert("Registered successfully");
 
-      // 🔁 go back to login page 
+      // go back to login page 
       setShowLoginPage(true);
 
     } catch (err) {
@@ -42,7 +42,7 @@ function Register({ setShowLoginPage }) {
 
       <button onClick={handleRegister}>Register</button>
 
-      {/* 🔁 Go to Login */}
+      {/*Go to Login */}
       <p
         onClick={() => setShowLoginPage(true)}
         style={{ cursor: "pointer" }}

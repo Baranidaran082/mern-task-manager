@@ -13,10 +13,10 @@ function Login({ setIsUserInsideApp, setShowLoginPage }) {
         password,
       });
 
-      // ✅ store token
-      localStorage.setItem("token", res.data.token);
+      //  store token
+      sessionStorage.setItem("token", res.data.token);
 
-      // ✅ enter app
+      //  enter app
       setIsUserInsideApp(true);
 
     } catch (err) {
@@ -43,7 +43,7 @@ function Login({ setIsUserInsideApp, setShowLoginPage }) {
 
       <button onClick={handleLogin}>Login</button>
 
-      {/* 🔁 Go to Register */}
+      {/* Go to Register */}
       <p
         onClick={() => setShowLoginPage(false)}
         style={{ cursor: "pointer", color: "blue" }}

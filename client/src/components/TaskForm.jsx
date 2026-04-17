@@ -2,12 +2,12 @@ import { useState } from "react";
 import axios from "axios";
 import "./Taskform.css"
 
-function TaskForm() {
+function TaskForm({ fetchTasks }) {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
 
   const handleSubmit = async () => {
-    const token = localStorage.getItem("token");
+    const token = sessionStorage.getItem("token");
 
     try {
       await axios.post(
@@ -25,6 +25,7 @@ function TaskForm() {
 
       setTitle("");
       setDescription("");
+      fetchTasks();
 
     } catch (error) {
       console.error("Error adding task:", error);

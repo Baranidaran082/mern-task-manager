@@ -23,3 +23,17 @@ button {
   cursor: pointer;
   transition: 0.3s;
 }
+
+
+.logout {
+  background: #dc3545;
+  color: white;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.logout:hover {
+  background: #bb2d3b;
+}

@@ -117,7 +117,7 @@ app.post("/tasks",authMiddleware, async (req,res)=>{
  const task = new Task({
       title: req.body.title,
     description: req.body.description,
-    userId: req.user.id   // 🔥 important
+    userId: req.user.id  
 });
 
  await task.save();
@@ -169,7 +169,7 @@ app.put("/tasks/:id", authMiddleware, async (req, res) => {
 app.delete("/tasks/:id", authMiddleware, async (req, res) => {
   await Task.findOneAndDelete({
     _id: req.params.id,
-    userId: req.user.id   // 🔥 only owner can delete
+    userId: req.user.id   //  only owner can delete
   });
 
   res.json({ message: "Task deleted" });
